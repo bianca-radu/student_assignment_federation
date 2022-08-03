@@ -1,0 +1,27 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Assignment  @key(fields: "studentId"){
+  studentId: String!
+  title: String
+}
+
+type Student  @key(fields: "id") @extends {
+  id: ID! @external
+  assignment: Assignment!
+}
+
+input NewAssignment {
+  title: String
+  studentId: String!
+}
+
+type Query {
+  assignment(studentId: String!): Assignment
+  assignments: [Assignment]
+}
+
+type Mutation {
+  createAssignment(input: NewAssignment!): Assignment!
+}
